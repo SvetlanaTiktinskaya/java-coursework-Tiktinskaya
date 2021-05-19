@@ -79,10 +79,37 @@ public class GameField extends JPanel implements ActionListener {
             x[0] += DOT_SIZE;
         }
     }
+    public void checkApple(){
+        if (x[0] == appleX && y[0] == appleY){
+            dots++;
+            createApple();
+        }
+    }
+    public void checkCollissions(){
+        for (int i = dots; i > 0; i--){
+            if(i > 4 && x[0] == x[i] && y[0] == y[i]){
+                inGame = false;
+            }
+        }
+        if(x[0]>SIZE){
+            inGame = false;
+        }
+        if(x[0]<0){
+            inGame = false;
+        }
+        if(y[0]>SIZE){
+            inGame = false;
+        }
+        if(y[0]<0){
+            inGame = false;
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(inGame){
+            checkApple();
+            checkCollissions();
             move();
         }
         repaint();
